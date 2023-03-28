@@ -56,6 +56,7 @@ function App() {
             <Alert alert={alert}></Alert>
             <div className="container my-4" >
               
+              
             <Form heading="Text Analyzer" mode={mode}/>
            {/* <About/>   */}
             </div>
