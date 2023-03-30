@@ -22,13 +22,13 @@ export class NewsComponent extends Component {
     this.state={
      articles: [],
      loading: false,
-     page:1
+     page: 1
     }
     
    }
 
-   async componentDidMount(){
-    let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5d361aa7a91a48c2826f70d7f910fc8f&page=1&pageSize=${this.props.pageSize}`;
+   async updateNews(){
+    let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5d361aa7a91a48c2826f70d7f910fc8f&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({loading: true})
 
     let data = await fetch(url);
@@ -41,46 +41,20 @@ export class NewsComponent extends Component {
     })
    }
 
+   async componentDidMount(){
+          this.updateNews();
+    
+   }
+
   handleprev =async()=>{
+        this.setState({page :this.state.page -1})
+        this.updateNews();
 
-        let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5d361aa7a91a48c2826f70d7f910fc8f&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
-        this.setState({loading: true})
-
-        let data = await fetch(url);
-        let parsedData=await data.json()
-        console.log(parsedData);
-       
-        
-        console.log("Next")
-        this.setState({
-          page: this.state.page -1,
-          articles: parsedData.articles,
-          loading: false
-        })
-        console.log("previous")
       }
 
   handlenext =async()=>{
-
-    if(!(this.state.page+1 > Math.ceil(this.state.totalArticles/this.props.pageSize))){
-
-    }
-    
-        let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5d361aa7a91a48c2826f70d7f910fc8f&page=${this.state.page +1}&pageSize=${this.props.pageSize}`;
-
-        this.setState({loading: true})
-        
-
-        let data = await fetch(url);
-        let parsedData=await data.json()
-        
-       
-        
-        this.setState({
-          page: this.state.page+ 1,
-          articles: parsedData.articles,
-          loading:false
-        })
+        this.setState({page :this.state.page +1})
+        this.updateNews();
         
       }
 
@@ -98,7 +72,7 @@ export class NewsComponent extends Component {
         <div className="row my-4">
           {this.state.articles.map((element)=>{
             return <div className="col-md-4" key={element.url}>
-            <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url}/>
+            <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name}/>
             </div>
             
 
