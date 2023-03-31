@@ -16,28 +16,37 @@ export class NewsComponent extends Component {
       pageSize: PropTypes.number,
       category: PropTypes.string,
   }
+
+  capitalize=(s)=>{
+    return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
    
-   constructor(){
-    super();
+   constructor(props){
+    super(props);
     this.state={
+
      articles: [],
      loading: false,
      page: 1
+
     }
+
+    document.title=`${this.capitalize(this.capitalize(this.props.category))} -  NewsFox`;
     
    }
 
    async updateNews() {
-    let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5d361aa7a91a48c2826f70d7f910fc8f&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4ed608f16b8c4ed683ca23c0beaa09ca&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({loading: true})
 
     let data = await fetch(url);
     let parsedData=await data.json()
    
     this.setState({
-      articles: parsedData.articles ,
-       totalArticles: parsedData.totalResults,
-      loading: false
+       articles: parsedData.articles ,
+       totalArticles:parsedData.totalResults,
+       loading: false
     })
    }
 
@@ -47,13 +56,13 @@ export class NewsComponent extends Component {
    }
 
   handleprev =async()=>{
-        this.setState({page: this.state.page -1});
+       await this.setState({page: this.state.page -1});
         this.updateNews();
 
       }
 
   handlenext =async()=>{
-        this.setState({page: this.state.page +1});
+        await this.setState({page: this.state.page +1});
         this.updateNews();
         
       }
@@ -66,7 +75,7 @@ export class NewsComponent extends Component {
   render() {
     return (
       <div className='container' >
-        <h1 className='text-center' style={{margin: '35px 0px'}}>News Fox - Top Headlines</h1>
+        <h1 className='text-center' style={{margin: '35px 0px'}}>News Fox - Top {this.capitalize(this.capitalize(this.props.category))} Headlines</h1>
         {this.state.loading && <Spinner/>}
         
         <div className="row my-4">
