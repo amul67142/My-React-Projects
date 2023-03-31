@@ -33,7 +33,7 @@ export class NewsComponent extends Component {
 
     let data = await fetch(url);
     let parsedData=await data.json()
-    console.log(parsedData);
+   
     this.setState({
       articles: parsedData.articles ,
        totalArticles: parsedData.totalResults,
@@ -47,13 +47,13 @@ export class NewsComponent extends Component {
    }
 
   handleprev =async()=>{
-        this.setState({page :this.state.page -1})
+        this.setState({page: this.state.page -1});
         this.updateNews();
 
       }
 
   handlenext =async()=>{
-        this.setState({page :this.state.page +1})
+        this.setState({page: this.state.page +1});
         this.updateNews();
         
       }
