@@ -27,7 +27,7 @@ export class NewsComponent extends Component {
     
    }
 
-   async updateNews(){
+   async updateNews() {
     let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5d361aa7a91a48c2826f70d7f910fc8f&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({loading: true})
 
