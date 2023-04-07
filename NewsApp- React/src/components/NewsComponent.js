@@ -53,19 +53,10 @@ export class NewsComponent extends Component {
     this.updateNews();
   }
 
-  // handleprev = async () => {
-  //   await this.setState({ page: this.state.page - 1 });
-  //   this.updateNews();
-  // };
-
-  // handlenext = async () => {
-  //   await this.setState({ page: this.state.page + 1 });
-  //   this.updateNews();
-  // };
-
+ 
   fetchMoreData = async() => {
     this.setState({page: this.state.page +1})
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4ed608f16b8c4ed683ca23c0beaa09ca&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4ed608f16b8c4ed683ca23c0beaa09ca&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
     
 
     let data = await fetch(url);
@@ -97,7 +88,7 @@ export class NewsComponent extends Component {
          
           
        
-         <div class="container">
+         <div className="container">
           <div className="row my-4">
             {this.state.articles.map((element) => {
               return (
