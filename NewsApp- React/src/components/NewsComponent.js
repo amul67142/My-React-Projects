@@ -17,10 +17,7 @@ const NewsComponent = (props)=> {
   };
 
   
-  // document.title = `${capitalize(
-  //   capitalize(props.category)
-  // )} -  NewsFox`;
-
+  
   
 
   const updateNews= async()=> {
@@ -39,6 +36,8 @@ const NewsComponent = (props)=> {
 
   useEffect(() => {
    updateNews();
+   document.title = `${capitalize(capitalize(props.category))} -  NewsFox`;
+
    
   }, []);
 
@@ -46,9 +45,10 @@ const NewsComponent = (props)=> {
 
  
   const fetchMoreData = async() => {
-    setpage(page + 1)
+   
     
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=5d361aa7a91a48c2826f70d7f910fc8f&page=${page+1}&pageSize=${props.pageSize}`;
+    setpage(page + 1)
     
 
     let data = await fetch(url);
@@ -63,7 +63,7 @@ const NewsComponent = (props)=> {
   
     return (
       <>
-        <h1 className="text-center" style={{ margin: "35px 0px" }}>
+        <h1 className="text-center" style={{ margin: "90px 0px", marginBottom: "60px"}}>
           News Fox - Top {capitalize(capitalize(props.category))}{" "}
           Headlines
         </h1>
